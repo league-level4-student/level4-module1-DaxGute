@@ -36,32 +36,36 @@ public class Snake {
 	public void update() {
 		//1. use a switch statement to check on the currentDirection
 		//   of the snake and calculate its next x and y position.
+		Location locational;
 		switch(currentDirection) {
 		case UP:
-			head.setLocation(new Location(head.getLocation().x, head.getLocation().y - 1));
+			locational = new Location(head.getLocation().x, head.getLocation().y - 1);
 			break;
 		case DOWN:
-			head.setLocation(new Location(head.getLocation().x, head.getLocation().y + 1));
-			System.out.println("DOWn");
+			locational = new Location(head.getLocation().x, head.getLocation().y + 1);
 			break;
 		case RIGHT:
-			head.setLocation(new Location(head.getLocation().x - 1, head.getLocation().y));
-			System.out.println("RIGHT");
+			locational = new Location(head.getLocation().x + 1, head.getLocation().y);
 			break;
 		case LEFT:
-			head.setLocation(new Location(head.getLocation().x + 1, head.getLocation().y));
+			locational = new Location(head.getLocation().x - 1, head.getLocation().y);
 			break;
+		default:
+			System.out.println("Not even possible but ok.");
+			locational = new Location(head.getLocation().x, head.getLocation().y);
 		}
 
 		//2. Iterate through the SnakeSegments in reverse order
 		//2a. Update each snake segment to the location of the segment 
 		//    in front of it.
-		for (int i = snake.size() - 1; i > 0; i--) {
-			snake.get(i).setLocation(snake.get(i + 1).getLocation());
+	
+	
+		for (int i = snake.size() - 1; i >= 1; i--) {
+			snake.get(i).setLocation(snake.get(i - 1).getLocation());
 		}
 		
 		//3. set the location of the head to the new location calculated in step 1
-		
+		head.setLocation(locational);
 
 		//4. set canMove to true
 		canMove = true;
@@ -112,7 +116,8 @@ public class Snake {
 		//1. complete the method so it returns true if the head is located
 		//   in the same location as any other body segment
 		for (int i = snake.size() - 1; i > 0; i--) {
-			if (snake.get(i).getLocation() == head.getLocation()) {
+			if (snake.get(i).getLocation().equals(head.getLocation())) {
+				System.out.println("YEah");
 				return true;
 			}
 		}
@@ -122,8 +127,8 @@ public class Snake {
 	public boolean isLocationOnSnake(Location loc) {
 		//1. complete the method so it returns true if the passed in
 		//   location is located on the snake
-		for (int i = snake.size(); i > 0; i--) {
-			if (snake.get(i).getLocation() == loc) {
+		for (int i = snake.size(); i >= 0; i--) {
+			if (snake.get(i).getLocation().equals(loc)) {
 				return true;
 			}
 		}

@@ -97,13 +97,13 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		//   of the game. The smaller the number, the faster it goes.
 		switch (choice) {
 		case "Expert":
-			timer.setDelay(20);
+			timer.setDelay(70);
 			break;
 		case "Moderate":
-			timer.setDelay(30);
+			timer.setDelay(100);
 			break;
 		case "Beginner":
-			timer.setDelay(40);
+			timer.setDelay(130);
 			break;
 		}
 		//3. start the timer
@@ -137,7 +137,6 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 			break;
 		case KeyEvent.VK_RIGHT:
 			snake.setDirection(Direction.RIGHT);
-			System.out.println("no");
 			break;
 		case KeyEvent.VK_SPACE:
 			snake.feed();
@@ -173,7 +172,12 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		switch (choice) {
 		case "yes":
 			snake.reset(new Location(WIDTH / 2, HEIGHT / 2));
+			setFoodLocation();
 			timer.restart();
+			break;
+		case "no":
+			window.dispose();
+			break;
 		}
 		
 	}
@@ -194,11 +198,12 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		}
 		//3. if the location of the head is equal to the location of the food,
 		// 	 feed the snake and set the food location
-		if (snake.getHeadLocation() == foodLocation) {
+		if (snake.getHeadLocation().equals(foodLocation)) {
 			snake.feed();
 			setFoodLocation();
 		}
 
 		//4. call panel.repaint();
+		panel.repaint();
 	}
 }
